@@ -71,7 +71,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.send("Hi, I am root!");
+  res.redirect("/listings");
 });
 
 
