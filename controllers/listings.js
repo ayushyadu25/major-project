@@ -86,3 +86,21 @@ module.exports.destroyListing = async (req, res) => {
   req.flash("success", "Listing deleted! ")
   res.redirect("/listings");
 }
+
+module.exports.searchFunction = async(req, res) => {
+  const destination = req.query.destination;
+ 
+  const listing = await Listing.find({country:`${destination}`}).populate({
+    path: "reviews", populate: {
+      path: "author"
+    }
+  }).populate("owner");
+  let currUser= req.user;
+ let  mapToken= process.env.MAP_TOKEN;  
+  if (!listing) {
+    req.flash("error", "Listing you requested for does not exist ")
+    res.redirect("/listings");
+  }
+  
+  else res.render("listings/show.ejs", { listing,currUser,mapToken});
+}

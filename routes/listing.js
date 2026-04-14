@@ -9,6 +9,8 @@ const upload = multer({storage});
 
 router.get("/new",isLoggedIn,listingControllers.renderNew);
 router.get("/:id/edit",isLoggedIn,listingControllers.editListings);
+router.get("/search",listingControllers.searchFunction);
+
 
 router.route("/")
 .get(wrapAsync(listingControllers.index))
